@@ -317,5 +317,5 @@ module.exports = function (grunt) {
   grunt.registerTask('debug', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:debug']);
 
   // Run the project in production mode
-  grunt.registerTask('prod', ['build', 'env:prod', 'mkdir:upload']);
+  grunt.registerTask('prod', ['env:prod', 'ngAnnotate', 'uglify', 'cssmin', 'mkdir:upload']);
 };
