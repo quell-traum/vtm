@@ -85,8 +85,8 @@ module.exports = function (grunt) {
       }
     },
     concurrent: {
-      default: ['nodemon', 'watch'],
-      debug: ['nodemon', 'watch', 'node-inspector'],
+      default: ['nodemon'],
+      debug: ['nodemon', 'node-inspector'],
       options: {
         logConcurrentOutput: true
       }
@@ -317,5 +317,5 @@ module.exports = function (grunt) {
   grunt.registerTask('debug', ['env:dev', 'lint', 'mkdir:upload', 'copy:localConfig', 'concurrent:debug']);
 
   // Run the project in production mode
-  grunt.registerTask('prod', ['build', 'env:prod', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);
+  grunt.registerTask('prod', ['build', 'env:prod', 'mkdir:upload', 'copy:localConfig']);
 };
