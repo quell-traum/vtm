@@ -109,7 +109,7 @@ UserSchema.pre('save', function (next) {
  */
 UserSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
-    if (this.password.length < 4) {
+    if (this.password.length <= 4) {
       var error = 'password should be longer than 4 characters.';
       this.invalidate('password', error);
     }
