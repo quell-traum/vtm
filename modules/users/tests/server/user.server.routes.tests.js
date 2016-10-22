@@ -34,9 +34,6 @@ describe('User CRUD tests', function () {
 
     // Create a new user
     _user = {
-      firstName: 'Full',
-      lastName: 'Name',
-      displayName: 'Full Name',
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
@@ -213,8 +210,6 @@ describe('User CRUD tests', function () {
           // Get single user information from the database
 
           var userUpdate = {
-            firstName: 'admin_update_first',
-            lastName: 'admin_update_last',
             roles: ['admin']
           };
 
@@ -227,8 +222,6 @@ describe('User CRUD tests', function () {
               }
 
               userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body.firstName.should.be.equal('admin_update_first');
-              userInfoRes.body.lastName.should.be.equal('admin_update_last');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body._id.should.be.equal(String(user._id));
 
@@ -615,47 +608,6 @@ describe('User CRUD tests', function () {
       });
   });
 
-  it('should be able to update own user details', function (done) {
-    user.roles = ['user'];
-
-    user.save(function (err) {
-      should.not.exist(err);
-      agent.post('/api/auth/signin')
-        .send(credentials)
-        .expect(200)
-        .end(function (signinErr, signinRes) {
-          // Handle signin error
-          if (signinErr) {
-            return done(signinErr);
-          }
-
-          var userUpdate = {
-            firstName: 'user_update_first',
-            lastName: 'user_update_last',
-          };
-
-          agent.put('/api/users')
-            .send(userUpdate)
-            .expect(200)
-            .end(function (userInfoErr, userInfoRes) {
-              if (userInfoErr) {
-                return done(userInfoErr);
-              }
-
-              userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body.firstName.should.be.equal('user_update_first');
-              userInfoRes.body.lastName.should.be.equal('user_update_last');
-              userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
-              userInfoRes.body.roles.indexOf('user').should.equal(0);
-              userInfoRes.body._id.should.be.equal(String(user._id));
-
-              // Call the assertion callback
-              return done();
-            });
-        });
-    });
-  });
-
   it('should not be able to update own user details and add roles if not admin', function (done) {
     user.roles = ['user'];
 
@@ -671,8 +623,6 @@ describe('User CRUD tests', function () {
           }
 
           var userUpdate = {
-            firstName: 'user_update_first',
-            lastName: 'user_update_last',
             roles: ['user', 'admin']
           };
 
@@ -685,8 +635,6 @@ describe('User CRUD tests', function () {
               }
 
               userInfoRes.body.should.be.instanceof(Object);
-              userInfoRes.body.firstName.should.be.equal('user_update_first');
-              userInfoRes.body.lastName.should.be.equal('user_update_last');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body.roles.indexOf('user').should.equal(0);
               userInfoRes.body._id.should.be.equal(String(user._id));
@@ -728,8 +676,6 @@ describe('User CRUD tests', function () {
           }
 
           var userUpdate = {
-            firstName: 'user_update_first',
-            lastName: 'user_update_last',
             username: user.username
           };
 
@@ -780,8 +726,6 @@ describe('User CRUD tests', function () {
           }
 
           var userUpdate = {
-            firstName: 'user_update_first',
-            lastName: 'user_update_last',
             email: user.email
           };
 
@@ -798,34 +742,6 @@ describe('User CRUD tests', function () {
 
               return done();
             });
-        });
-    });
-  });
-
-  it('should not be able to update own user details if not logged-in', function (done) {
-    user.roles = ['user'];
-
-    user.save(function (err) {
-
-      should.not.exist(err);
-
-      var userUpdate = {
-        firstName: 'user_update_first',
-        lastName: 'user_update_last',
-      };
-
-      agent.put('/api/users')
-        .send(userUpdate)
-        .expect(400)
-        .end(function (userInfoErr, userInfoRes) {
-          if (userInfoErr) {
-            return done(userInfoErr);
-          }
-
-          userInfoRes.body.message.should.equal('User is not signed in');
-
-          // Call the assertion callback
-          return done();
         });
     });
   });
