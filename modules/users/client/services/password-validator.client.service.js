@@ -4,6 +4,13 @@
 angular.module('users').factory('PasswordValidator', ['$window',
   function ($window) {
     var owaspPasswordStrengthTest = $window.owaspPasswordStrengthTest;
+    owaspPasswordStrengthTest.config({
+      allowPassphrases       : true,
+      maxLength              : 128,
+      minLength              : 4,
+      minPhraseLength        : 20,
+      minOptionalTestsToPass : 0
+    });
 
     return {
       getResult: function (password) {

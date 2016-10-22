@@ -13,10 +13,10 @@ angular.module('users')
 
             // Requirements Meter - visual indicator for users
             var requirementsMeter = [
-              { color: 'danger', progress: '20' },
-              { color: 'warning', progress: '40' },
-              { color: 'info', progress: '60' },
-              { color: 'primary', progress: '80' },
+              // { color: 'danger', progress: '20' },
+              // { color: 'warning', progress: '40' },
+              // { color: 'info', progress: '60' },
+              // { color: 'primary', progress: '80' },
               { color: 'success', progress: '100' }
             ];
 

@@ -46,7 +46,7 @@ mg.connect(function (db) {
 
     function sendEmail(user) {
       email.to = user.email;
-      email.text = email.html = text.replace('{{name}}', user.displayName);
+      email.text = email.html = text.replace('{{name}}', user.username);
 
       transporter.sendMail(email, emailCallback(user));
     }
@@ -61,9 +61,9 @@ mg.connect(function (db) {
           if (config.mailer.options.debug) {
             console.log('Error: ', err);
           }
-          console.error('[' + processedCount + '/' + users.length + '] ' + chalk.red('Could not send email for ' + user.displayName));
+          console.error('[' + processedCount + '/' + users.length + '] ' + chalk.red('Could not send email for ' + user.username));
         } else {
-          console.log('[' + processedCount + '/' + users.length + '] Sent reset password email for ' + user.displayName);
+          console.log('[' + processedCount + '/' + users.length + '] Sent reset password email for ' + user.username);
         }
 
         if (processedCount === users.length) {

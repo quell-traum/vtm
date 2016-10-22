@@ -10,6 +10,14 @@ var mongoose = require('mongoose'),
   generatePassword = require('generate-password'),
   owasp = require('owasp-password-strength-test');
 
+  owasp.config({
+    allowPassphrases       : true,
+    maxLength              : 128,
+    minLength              : 4,
+    minPhraseLength        : 20,
+    minOptionalTestsToPass : 0
+  });
+
 /**
  * A Validation function for local strategy properties
  */
@@ -101,9 +109,8 @@ UserSchema.pre('save', function (next) {
  */
 UserSchema.pre('validate', function (next) {
   if (this.provider === 'local' && this.password && this.isModified('password')) {
-    var result = owasp.test(this.password);
-    if (result.errors.length) {
-      var error = result.errors.join(' ');
+    if (this.password.length < 4) {
+      var error = 'password should be longer than 4 characters.';
       this.invalidate('password', error);
     }
   }
