@@ -5,22 +5,22 @@ angular.module('articles').run(['Menus',
   function (Menus) {
     // Add the articles dropdown item
     Menus.addMenuItem('topbar', {
-      title: 'Articles',
-      state: 'articles',
+      title: 'Персонажи',
+      state: 'characters',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['user']
     });
 
     // Add the dropdown list item
-    Menus.addSubMenuItem('topbar', 'articles', {
-      title: 'List Articles',
-      state: 'articles.list'
+    Menus.addSubMenuItem('topbar', 'characters', {
+      title: 'Список персонажей',
+      state: 'characters.list'
     });
 
     // Add the dropdown create item
-    Menus.addSubMenuItem('topbar', 'articles', {
-      title: 'Create Articles',
-      state: 'articles.create',
+    Menus.addSubMenuItem('topbar', 'characters', {
+      title: 'Создать персонажа',
+      state: 'characters.create',
       roles: ['user']
     });
   }

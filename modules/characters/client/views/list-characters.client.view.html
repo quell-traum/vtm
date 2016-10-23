@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1>Characters</h1>
+  </div>
+
+  <div class="list-group list-characters" ng-if="vm.characters.$resolved && !!vm.characters.length">
+    <div class="row header">
+      <div class="col-md-2"><strong>Имя</strong></div>
+      <div class="col-md-2"><strong>Электронный адрес</strong></div>
+      <div class="col-md-2"><strong>Клан</strong></div>
+      <div class="col-md-2"><strong>Ключевая способность</strong></div>
+      <div class="col-md-2"><strong>Поколение</strong></div>
+    </div>
+    <div class="row character" ng-repeat="character in vm.characters" ng-click="goToCharacter(character._id)">
+      <div class="col-md-2" ng-bind="character.name"></div>
+      <div class="col-md-2" ng-bind="character.email"></div>
+      <div class="col-md-2" ng-bind="character.clan"></div>
+      <div class="col-md-2" ng-bind="character.keyAbility"></div>
+      <div class="col-md-2" ng-bind="character.generation"></div>
+    </div>
+  </div>
+
+  <div class="alert alert-warning text-center" ng-if="vm.characters.$resolved && !vm.characters.length">
+  No Characters yet, why don't you <a ui-sref="characters.create">create one</a>?
+  </div>
+</section>

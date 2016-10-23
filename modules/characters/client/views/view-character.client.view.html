@@ -1,0 +1,55 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.character.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.character.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="characters.edit({ characterId: vm.character._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Создан
+      <span ng-bind="vm.character.created | date:'mediumDate'"></span>
+      пользователем
+      <span ng-if="vm.character.user"
+            ng-bind="vm.character.user.displayName"></span>
+      <span ng-if="!vm.character.user">Deleted User</span>
+    </em>
+  </small>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-3"><strong>Имя</strong></div>
+        <div class="col-md-6" ng-bind="vm.character.name"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Электронный адрес</strong></div>
+        <div class="col-md-6" ng-bind="vm.character.email"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Клан</strong></div>
+        <div class="col-md-6" ng-bind="vm.character.clan"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Ключевая способность</strong></div>
+        <div class="col-md-6" ng-bind="vm.character.keyAbility"></div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-3"><strong>Поколение</strong></div>
+        <div class="col-md-6" ng-bind="vm.character.generation"></div>
+      </div>
+      <hr/>
+    </div>
+  </div>
+</section>

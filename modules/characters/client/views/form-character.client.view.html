@@ -1,0 +1,68 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.character._id ? 'Редактирование персонажа' : 'Новый персонаж'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.characterForm" class="form-horizontal" ng-submit="vm.save(vm.form.characterForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Имя</label>
+          <input name="name" type="text" ng-model="vm.character.name" id="name" class="form-control" placeholder="Имя" required>
+          <div ng-messages="vm.form.characterForm.name.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Имя персонажа необходимо.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="email">Электронный адрес</label>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.character.email" placeholder="электронный адрес" lowercase required>
+          <div ng-messages="vm.form.characterForm.email.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Электронный адрес необходим.</p>
+            <p class="help-block error-text" ng-message="email">Электронный адрес введен некорректно.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Клан</label>
+          <ui-select ng-model="vm.character.clan">
+            <ui-select-match>
+              <span ng-bind="$select.selected"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="clan in clans">
+              <span ng-bind="clan"></span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Ключевая способность</label>
+          <ui-select ng-model="vm.character.keyAbility">
+            <ui-select-match>
+              <span ng-bind="$select.selected"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="keyAbility in keyAbilities">
+              <span ng-bind="keyAbility"></span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Поколение</label>
+          <ui-select ng-model="vm.character.generation">
+            <ui-select-match>
+              <span ng-bind="$select.selected"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="generation in generationValues">
+              <span ng-bind="generation"></span>
+            </ui-select-choices>
+          </ui-select>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.character._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
