@@ -30,7 +30,7 @@ var CharacterSchema = new Schema({
   keyAbility: {
     type: String,
     default: '',
-    required: 'Выберите ключевую способность',
+    required: 'Выберите ключевой навык',
     trim: true
   },
   generation: {

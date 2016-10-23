@@ -2,8 +2,7 @@
   <div class="page-header">
     <h1 ng-bind="vm.character.name"></h1>
   </div>
-  <div class="pull-right"
-       ng-show="vm.character.isCurrentUserOwner">
+  <div class="pull-right"><!--ng-show="vm.character.isCurrentUserOwner"-->
     <a class="btn btn-primary"
        ui-sref="characters.edit({ characterId: vm.character._id })">
       <i class="glyphicon glyphicon-edit"></i>
@@ -41,7 +40,7 @@
       </div>
       <hr/>
       <div class="row">
-        <div class="col-md-3"><strong>Ключевая способность</strong></div>
+        <div class="col-md-3"><strong>Ключевой навык</strong></div>
         <div class="col-md-6" ng-bind="vm.character.keyAbility"></div>
       </div>
       <hr/>
@@ -50,6 +49,9 @@
         <div class="col-md-6" ng-bind="vm.character.generation"></div>
       </div>
       <hr/>
+    </div>
+
+    <div class="col-md-4" ng-include="'modules/characters/client/views/character-battle-card.html'">
     </div>
   </div>
 </section>

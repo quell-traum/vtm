@@ -2,7 +2,7 @@
   <div class="page-header">
     <h1>{{vm.character._id ? 'Редактирование персонажа' : 'Новый персонаж'}}</h1>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-8">
     <form name="vm.form.characterForm" class="form-horizontal" ng-submit="vm.save(vm.form.characterForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
@@ -32,7 +32,7 @@
         </div>
 
         <div class="form-group">
-          <label class="control-label">Ключевая способность</label>
+          <label class="control-label">Ключевой навык</label>
           <ui-select ng-model="vm.character.keyAbility">
             <ui-select-match>
               <span ng-bind="$select.selected"></span>
@@ -63,5 +63,7 @@
         </div>
       </fieldset>
     </form>
+  </div>
+  <div class="col-md-4" ng-include="'modules/characters/client/views/character-battle-card.html'">
   </div>
 </section>

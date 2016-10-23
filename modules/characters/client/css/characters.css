@@ -16,3 +16,50 @@
   padding: 10px;
 }
 
+.card {
+  width: 261px;
+  height: 380px;
+  border-radius: 35px;
+  background-image: url(/modules/characters/client/img/card_background.jpg);
+  background-size: cover;
+}
+
+.card .card-top, .card .card-bottom {
+  height: 50%;
+  width: 100%;
+}
+
+.card .character-name {
+  text-align: center;
+  font-size: 18px;
+  padding-top: 3px;
+  line-height: 25px;
+  min-height: 25px;
+}
+
+.card .card-top .stat-figure {
+  font-size: 70px;
+  text-align: center;
+  margin-top: 30px;
+  min-height: 70px;
+}
+
+.card .card-top .stat-figure {
+  font-size: 70px;
+  text-align: center;
+  margin-top: 10px;
+  min-height: 70px;
+}
+
+.card .card-bottom .stat-figure {
+  font-size: 70px;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.card .character-clan {
+  text-align: center;
+  font-size: 18px;
+  padding-top: 40px;
+  line-height: 25px;
+}
