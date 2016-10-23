@@ -16,7 +16,7 @@
       $state.go('characters.view', {
         characterId: characterId
       });
-    }
+    };
 
   }
 

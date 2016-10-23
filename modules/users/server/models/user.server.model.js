@@ -10,13 +10,13 @@ var mongoose = require('mongoose'),
   generatePassword = require('generate-password'),
   owasp = require('owasp-password-strength-test');
 
-  owasp.config({
-    allowPassphrases       : true,
-    maxLength              : 128,
-    minLength              : 4,
-    minPhraseLength        : 20,
-    minOptionalTestsToPass : 0
-  });
+owasp.config({
+  allowPassphrases       : true,
+  maxLength              : 128,
+  minLength              : 4,
+  minPhraseLength        : 20,
+  minOptionalTestsToPass : 0
+});
 
 /**
  * A Validation function for local strategy properties
