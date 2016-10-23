@@ -40,26 +40,19 @@
 .card .card-top .stat-figure {
   font-size: 70px;
   text-align: center;
-  margin-top: 30px;
-  min-height: 70px;
-}
-
-.card .card-top .stat-figure {
-  font-size: 70px;
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 35px;
   min-height: 70px;
 }
 
 .card .card-bottom .stat-figure {
   font-size: 70px;
   text-align: center;
-  padding-top: 20px;
+  padding-top: 15px;
 }
 
 .card .character-clan {
   text-align: center;
   font-size: 18px;
-  padding-top: 40px;
+  padding-top: 45px;
   line-height: 25px;
 }
