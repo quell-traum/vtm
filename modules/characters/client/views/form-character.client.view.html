@@ -14,9 +14,8 @@
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="email">Электронный адрес</label>
-          <input type="email" id="email" name="email" class="form-control" ng-model="vm.character.email" placeholder="электронный адрес" lowercase required>
+          <input type="email" id="email" name="email" class="form-control" ng-model="vm.character.email" placeholder="электронный адрес" lowercase>
           <div ng-messages="vm.form.characterForm.email.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Электронный адрес необходим.</p>
             <p class="help-block error-text" ng-message="email">Электронный адрес введен некорректно.</p>
           </div>
         </div>

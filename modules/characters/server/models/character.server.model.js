@@ -19,7 +19,6 @@ var CharacterSchema = new Schema({
   email: {
     type: String,
     default: '',
-    required: 'Введите электронный адрес.',
     trim: true
   },
   clan: {
