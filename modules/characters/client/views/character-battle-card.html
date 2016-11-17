@@ -1,10 +1,10 @@
 <div class="card">
   <div class="card-top">
     <div class="character-name" ng-bind="vm.character.name"></div>
-    <div class="stat-figure">7</div>
+    <div class="stat-figure">{{card ? card.physicalPower : 7}}</div>
   </div>
   <div class="card-bottom">
-    <div class="stat-figure">5</div>
+    <div class="stat-figure">{{card ? card.mentalPower : 5}}</div>
     <div class="character-clan" ng-bind="vm.character.clan"></div>
   </div>
 </div>

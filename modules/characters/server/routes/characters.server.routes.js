@@ -17,6 +17,9 @@ module.exports = function(app) {
     .put(characters.update)
     .delete(characters.delete);
 
+  app.route('/api/characters/:characterId/recalculateCards')
+    .put(characters.recalculateCards);
+
   // Finish by binding the Character middleware
   app.param('characterId', characters.characterByID);
 };

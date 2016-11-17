@@ -14,6 +14,10 @@
     }, {
       update: {
         method: 'PUT'
+      },
+      recalculateCards: {
+        url: 'api/characters/:characterId/recalculateCards',
+        method: 'PUT'
       }
     });
   }

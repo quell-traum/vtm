@@ -54,4 +54,13 @@
     <div class="col-md-4" ng-include="'modules/characters/client/views/character-battle-card.html'">
     </div>
   </div>
+  <div class="row">
+    <div class="form-group">
+      <button class="btn btn-default" ng-click="calculateCards(vm)">{{vm.character.cards.length ? 'Перерасчитать карты' : 'Рассчитать карты'}}</button>
+    <div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 character-card-preview" ng-repeat="card in vm.character.cards" ng-include="'modules/characters/client/views/character-battle-card.html'">
+    </div>
+  </div>
 </section>

@@ -4,7 +4,8 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  Schema = mongoose.Schema;
+  Schema = mongoose.Schema,
+  Card = require('../../../cards/server/models/card.server.model.js');
 
 /**
  * Character Schema
@@ -45,7 +46,10 @@ var CharacterSchema = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'User'
-  }
+  },
+  cards: [ {
+    type : Schema.ObjectId, ref : 'Card'
+  } ]
 });
 
 mongoose.model('Character', CharacterSchema);

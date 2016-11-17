@@ -6,11 +6,10 @@
     .module('characters')
     .controller('CharactersController', CharactersController);
 
-  CharactersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'characterResolve'];
+  CharactersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'characterResolve', 'CharactersService'];
 
-  function CharactersController ($scope, $state, $window, Authentication, character) {
+  function CharactersController ($scope, $state, $window, Authentication, character, CharactersService) {
     var vm = this;
-
     vm.authentication = Authentication;
     vm.character = character;
     vm.error = null;
@@ -36,6 +35,22 @@
     ];
 
     $scope.generationValues = [ 7, 8, 9, 10, 11, 12, 13];
+
+    $scope.calculateCards = function calculateCard(vm) {
+      if (!!vm.character && !!vm.character.cards && !!vm.character.cards.length && !confirm('Все существующие карты персонажа будут удалены перед пересчетом карт.\nПродолжить?')) {
+        return;
+      }
+
+      CharactersService.recalculateCards(vm.character,
+          function(res){
+            console.log('res', res);
+            vm.character.cards = res.cards;
+          },
+          function(err){
+            console.log('err', err);
+          }
+      );
+    };
 
     // Remove existing Character
     function remove() {

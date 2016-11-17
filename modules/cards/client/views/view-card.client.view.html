@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.card.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.card.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="cards.edit({ cardId: vm.card._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.card.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.card.user"
+            ng-bind="vm.card.user.displayName"></span>
+      <span ng-if="!vm.card.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.card.content"></p>
+</section>

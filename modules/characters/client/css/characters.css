@@ -16,6 +16,10 @@
   padding: 10px;
 }
 
+.character-card-preview {
+  transform: scale(0.6);
+}
+
 .card {
   width: 261px;
   height: 380px;
