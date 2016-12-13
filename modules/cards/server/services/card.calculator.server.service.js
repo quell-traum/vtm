@@ -10,7 +10,7 @@ var cardLevelModifiers = {
   medium: 0,
   strong: 1,
   veryStrong: 2,
-  veryVeryStrong: 2,
+  veryVeryStrong: 3,
   sudden: -1,
   verySudden: -2
 };
@@ -24,22 +24,17 @@ var BlankCard = function(cardNumber, characterGeneration) {
 
 BlankCard.prototype.__calculateFigures = function() {
   var base = LOWEST_GENERATION - this.characterGeneration + 1;
+  var figure = base / 2 + this.modifier;
 
-  // first card of type is rounded to be closer to the base
-  // not used so far anyway
-  /*var roundingOperation = function () {};
-  if (this.isFirstOfType && this.modifier >= 0) {
-    roundingOperation = Math.floor
+  // first card of type has higher figure rounded to be closer to the base and lower - to be farther from the base
+  // second card of type has higher figure rounded to be farther from the base and lower - to be closer to the base
+  if (this.isFirstOfType) {
+    this.higherFigure = Math.ceil(figure);
+    this.lowerFigure = Math.floor(figure);
   } else {
-    roundingOperation = Math.ceil
+    this.higherFigure = Math.floor(figure);
+    this.lowerFigure = Math.ceil(figure);
   }
-
-  var figure = base / 2 + this.modifier;
-  */
-
-  var figure = base / 2 + this.modifier;
-  this.lowerFigure = Math.floor(figure);
-  this.higherFigure = Math.ceil(figure);
 }
 ;
 
