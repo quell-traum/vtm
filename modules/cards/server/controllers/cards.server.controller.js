@@ -7,8 +7,7 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Card = mongoose.model('Card'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash'),
-  cardCalculator = require('../services/card.calculator.server.service.js');
+  _ = require('lodash');
 
 /**
  * Create a Card

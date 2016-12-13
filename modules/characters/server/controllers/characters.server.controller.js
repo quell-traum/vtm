@@ -8,6 +8,7 @@ var path = require('path'),
   Character = mongoose.model('Character'),
   Card = mongoose.model('Card'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  CardCalculator = require(path.resolve('./modules/cards/server/services/card.calculator.server.service.js')),
   _ = require('lodash');
 
 var removeCards = function (character) {
@@ -20,29 +21,11 @@ var removeCards = function (character) {
   });
 };
 
-var cardsNumber = function (character) {
-  return 10 - Math.floor(character.generation / 2);
-};
-
-var createCard = function (character) {
-  var card = new Card({
-    physicalPower: parseInt(Math.random() * 100),
-    mentalPower: parseInt(Math.random() * 100),
-    _character: character._id
-  });
-  card.save(function (err) {
-  });
-  return card;
-};
-
 var createCards = function (character) {
   removeCards(character);
   character.cards = [];
 
-  for (var i = 0; i < cardsNumber(character); i++) {
-    var card = createCard(character);
-    character.cards.push(card);
-  }
+  CardCalculator.createCards(character);
 
   character.save();
 };

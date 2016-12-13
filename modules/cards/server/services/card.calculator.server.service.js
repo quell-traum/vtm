@@ -4,6 +4,8 @@ var mongoose = require('mongoose'),
   Character = mongoose.model('Character'),
   Card = mongoose.model('Card');
 
+var LOWEST_GENERATION = 13;
+
 var cardLevelModifiers = {
   medium: 0,
   strong: 1,
@@ -13,20 +15,33 @@ var cardLevelModifiers = {
   verySudden: -2
 };
 
-var cardsNumber = function (character) {
-  return 10 - Math.floor(character.generation / 2);
-};
 
 var BlankCard = function(cardNumber, characterGeneration) {
-  var modifiers = this.cardModifiers(cardNumber) || {};
-  this.modifier = modifiers.modifier;
-  this.isFirstOfType = modifiers.isFirstOfType;
+  this.__setCardModifiers(cardNumber);
   this.characterGeneration = characterGeneration;
+  this.__calculateFigures();
 };
 
 BlankCard.prototype.__calculateFigures = function() {
+  var base = LOWEST_GENERATION - this.characterGeneration + 1;
 
-};
+  // first card of type is rounded to be closer to the base
+  // not used so far anyway
+  /*var roundingOperation = function () {};
+  if (this.isFirstOfType && this.modifier >= 0) {
+    roundingOperation = Math.floor
+  } else {
+    roundingOperation = Math.ceil
+  }
+
+  var figure = base / 2 + this.modifier;
+  */
+
+  var figure = base / 2 + this.modifier;
+  this.lowerFigure = Math.floor(figure);
+  this.higherFigure = Math.ceil(figure);
+}
+;
 
 /**
  *
@@ -41,54 +56,64 @@ BlankCard.prototype.__calculateFigures = function() {
  *
  * 7 поколение 7 карт (2/2/2/1) round first puper to  lower and second puper to higher
  */
-BlankCard.prototype.cardModifiers = function(cardNumber) {
+BlankCard.prototype.__setCardModifiers = function(cardNumber) {
   switch (cardNumber) {
     case 1:
-      return { modifier: cardLevelModifiers.medium, isFirstOfType: true };
+      this.modifier = cardLevelModifiers.medium;
+      this.isFirstOfType = true;
+      break;
     case 2:
-      return { modifier: cardLevelModifiers.medium, isFirstOfType: false };
+      this.modifier = cardLevelModifiers.medium;
+      this.isFirstOfType = false;
+      break;
     case 3:
-      return { modifier: cardLevelModifiers.strong, isFirstOfType: true };
+      this.modifier = cardLevelModifiers.strong;
+      this.isFirstOfType = true;
+      break;
     case 4:
-      return { modifier: cardLevelModifiers.strong, isFirstOfType: false };
+      this.modifier = cardLevelModifiers.strong;
+      this.isFirstOfType = false;
+      break;
     case 5:
-      return { modifier: cardLevelModifiers.veryStrong, isFirstOfType: true };
+      this.modifier = cardLevelModifiers.veryStrong;
+      this.isFirstOfType = true;
+      break;
     case 6:
-      return { modifier: cardLevelModifiers.sudden, isFirstOfType: true };
+      this.modifier = cardLevelModifiers.sudden;
+      this.isFirstOfType = true;
+      break;
     case 7:
-      return { modifier: cardLevelModifiers.veryStrong, isFirstOfType: false };
+      this.modifier = cardLevelModifiers.veryStrong;
+      this.isFirstOfType = false;
+      break;
     case 8:
-      return { modifier: cardLevelModifiers.veryVeryStrong, isFirstOfType: true };
+      this.modifier = cardLevelModifiers.veryVeryStrong;
+      this.isFirstOfType = true;
+      break;
     case 9:
-      return { modifier: cardLevelModifiers.sudden, isFirstOfType: false };
+      this.modifier = cardLevelModifiers.sudden;
+      this.isFirstOfType = false;
+      break;
     case 10:
-      return { modifier: cardLevelModifiers.verySudden, isFirstOfType: true };
+      this.modifier = cardLevelModifiers.verySudden;
+      this.isFirstOfType = true;
+      break;
   }
 };
 
 var getRawCards = function(character) {
-  var cardsNumber = cardsNumber(character);
+  var cardsNumber = 10 - Math.floor(character.generation / 2);
+
   var characterGeneration = character.generation;
 
   var blankCards = [];
   for (var cardNumber = 0; cardNumber <= cardsNumber; cardNumber++) {
     blankCards.push(new BlankCard(cardNumber, characterGeneration));
   }
-
+  return blankCards;
 };
 
-/**
- * Calculates battle card figures
- * returns [ { higher: number, lover: number, cardModifiers: enum} ]
- *
- */
-exports.calculateCard = function() {
-
-};
-
-exports.cardLevel = cardLevelModifiers;
-
-var removeCards = function (character) {
+exports.removeCards = function (character) {
   character.cards = character.cards || [];
   var cardIds = character.cards.map(function (c) {
     return c._id;
@@ -98,25 +123,35 @@ var removeCards = function (character) {
   });
 };
 
-var createCard = function (character) {
-  var card = new Card({
-    physicalPower: parseInt(Math.random() * 100),
-    mentalPower: parseInt(Math.random() * 100),
-    _character: character._id
-  });
+var createCard = function (character, blankCard) {
+  var cardData = {
+    _character: character._id,
+    manual: false,
+    physicalPower: 0,
+    mentalPower: 0
+  };
+  switch (character.keyAbility) {
+    case 'Ментальный':
+      cardData.physicalPower = blankCard.lowerFigure;
+      cardData.mentalPower = blankCard.higherFigure;
+      break;
+    case 'Физический':
+      cardData.physicalPower = blankCard.higherFigure;
+      cardData.mentalPower = blankCard.lowerFigure;
+      break;
+  }
+
+  var card = new Card(cardData);
   card.save(function (err) {
   });
   return card;
 };
 
-var createCards = function (character) {
-  removeCards(character);
-  character.cards = [];
+exports.createCards = function (character) {
+  var blankCards = getRawCards(character) || [];
 
-  for (var i = 0; i < cardsNumber(character); i++) {
-    var card = createCard(character);
+  for (var i = 0; i < blankCards.length; i++) {
+    var card = createCard(character, blankCards[i]);
     character.cards.push(card);
   }
-
-  character.save();
 };
